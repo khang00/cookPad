@@ -1,6 +1,7 @@
 # cookpad
 
 > A social network for foods
+host at : https://cookpad-blog.firebaseapp.com/
 
 ## Build Setup
 
