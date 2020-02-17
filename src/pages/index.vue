@@ -14,10 +14,13 @@
         <a
           href="https://github.com/khang00/cookpad"
           target="_blank"
-          class="button--grey"
+          class="button--green"
         >
-          GitHub
+          Github
         </a>
+        <nuxt-link to="/login" class="button--grey">
+          Login
+        </nuxt-link>
       </div>
     </div>
   </div>

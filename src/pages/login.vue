@@ -6,6 +6,7 @@
     {{ password }}
     <button @click="login('normal')">Login</button>
     <button @click="login('google')">Login With Google</button>
+    <button @click="login('facebook')">Login With Facebook</button>
     {{ error }}
   </div>
 </template>

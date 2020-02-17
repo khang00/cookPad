@@ -16,10 +16,10 @@
     "core-js": "2",
     "firebase": "^7.8.2",
     "nuxt": "^2.0.0",
-    "typescript": "^3.7.5",
     "webpack": "^4.41.6"
   },
   "devDependencies": {
+    "typescript": "^3.7.5",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "babel-eslint": "^10.0.1",
