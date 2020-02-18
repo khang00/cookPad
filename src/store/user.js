@@ -1,4 +1,5 @@
 import { auth, authProviders } from '@/plugins/fireauth.js'
+import { storage } from '@/plugins/firestore.js'
 
 export const state = () => ({
   user: null
@@ -17,14 +18,17 @@ export const getters = {
 }
 
 export const actions = {
-  registerAuthObserver({ commit }) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        return commit('setUser', user)
-      } else {
-        return commit('setUser', null)
-      }
+  updateUser({ commit }, user) {
+    return new Promise((resolve) => {
+      commit('setUser', user)
+      resolve()
     })
+  },
+
+  uploadAvatar({ commit, getters }, image) {
+    const user = getters.getUser
+    const userImageStorage = storage.child(`user/images/${user.email}.jpg`)
+    return userImageStorage.put(image)
   },
 
   sendVerificationEmail() {

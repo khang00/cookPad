@@ -8,6 +8,7 @@
     <button @click="login('google')">Login With Google</button>
     <button @click="login('facebook')">Login With Facebook</button>
     {{ error }}
+    {{ user }}
   </div>
 </template>
 

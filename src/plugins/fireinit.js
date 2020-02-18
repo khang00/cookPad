@@ -1,6 +1,4 @@
 import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
 import 'firebase/database'
 
 const firebaseConfig = {
@@ -19,5 +17,4 @@ if (!firebase.apps.length) {
 }
 
 export const DB = firebase.database()
-export const StoreDB = firebase.firestore()
 export default firebase

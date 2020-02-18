@@ -24,13 +24,13 @@ export default {
    ** Global CSS
    */
   css: [],
-  router: {
-    middleware: 'routerAuth'
-  },
   /*
    ** Plugins to load before mounting the App
    */
   plugins: ['~/plugins/fireauth.js'],
+  router: {
+    middleware: 'routerAuth'
+  },
   /*
    ** Nuxt.js dev-modules
    */
