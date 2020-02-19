@@ -3,10 +3,10 @@ import 'firebase/auth'
 
 export const auth = firebase.auth()
 export const authProviders = {
-  google: new firebase.auth.GoogleAuthProvider(),
-  facebook: new firebase.auth.FacebookAuthProvider(),
-  github: new firebase.auth.GithubAuthProvider(),
-  twitter: new firebase.auth.TwitterAuthProvider()
+  Google: new firebase.auth.GoogleAuthProvider(),
+  Facebook: new firebase.auth.FacebookAuthProvider(),
+  Github: new firebase.auth.GithubAuthProvider(),
+  Twitter: new firebase.auth.TwitterAuthProvider()
 }
 export default (context) => {
   const { store } = context

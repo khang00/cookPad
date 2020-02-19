@@ -1,8 +1,5 @@
 <template>
-  <div v-if="isLogin">
-    {{ isLogin }}
-    <button @click="logout">Logout</button>
-  </div>
+  <a class="button--grey" @click="logout">Logout</a>
 </template>
 
 <script>
@@ -11,11 +8,6 @@ export default {
   data() {
     return {
       error: ''
-    }
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters['user/getUser'] != null
     }
   },
   methods: {
@@ -33,4 +25,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

@@ -63,7 +63,7 @@ export const actions = {
   },
 
   login({ commit }, { email, password, type }) {
-    if (type === 'normal') {
+    if (type === 'Login') {
       return new Promise((resolve, reject) => {
         auth
           .signInWithEmailAndPassword(email, password)

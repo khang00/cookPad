@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <p v-if="user && !user.emailVerified">Please verify your email</p>
     <div>
-      <logout />
+      <navigation />
+      <p v-if="user && !user.emailVerified">Please verify your email</p>
       <logo />
       <h1 class="title">
         Cookpad
@@ -14,11 +14,11 @@
         <a
           href="https://github.com/khang00/cookpad"
           target="_blank"
-          class="button--green"
+          class="button--grey"
         >
           Github
         </a>
-        <nuxt-link to="/login" class="button--grey">
+        <nuxt-link to="/login" class="button--green">
           Login
         </nuxt-link>
       </div>
@@ -28,12 +28,12 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
-import Logout from '~/components/Logout.vue'
+import Navigation from '~/components/Navigation.vue'
 
 export default {
   components: {
     Logo,
-    Logout
+    Navigation
   },
   computed: {
     user() {
@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style>
+.nav {
+  margin-bottom: 10%;
+}
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
