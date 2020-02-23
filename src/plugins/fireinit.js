@@ -1,5 +1,4 @@
 import * as firebase from 'firebase/app'
-import 'firebase/database'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCckESE6v5086AtsvA279fc-s2oWpv1A8c',
@@ -16,5 +15,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
 
-export const DB = firebase.database()
 export default firebase

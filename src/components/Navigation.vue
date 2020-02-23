@@ -3,6 +3,7 @@
     <div v-if="isLogin" class="user-nav">
       <logout />
       <nuxt-link to="/profile" class="button--grey">User Profile</nuxt-link>
+      <nuxt-link to="/message" class="button--grey">Messager</nuxt-link>
     </div>
   </div>
 </template>

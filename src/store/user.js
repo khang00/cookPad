@@ -71,7 +71,6 @@ export const actions = {
             resolve()
           })
           .catch((error) => {
-            console.log(error)
             reject(error)
           })
       })

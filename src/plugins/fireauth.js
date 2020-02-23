@@ -11,9 +11,14 @@ export const authProviders = {
 export default (context) => {
   const { store } = context
   auth.onAuthStateChanged((user) => {
-    console.log('load')
     if (user) {
-      store.dispatch('user/updateUser', user)
+      const userAuth = {
+        name: user.displayName,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        uid: user.uid
+      }
+      store.dispatch('user/updateUser', userAuth)
     } else {
       store.dispatch('user/updateUser', null)
     }

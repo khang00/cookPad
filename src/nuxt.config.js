@@ -27,7 +27,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/fireauth.js'],
+  plugins: [
+    '~/plugins/fireinit.js',
+    '~/plugins/fireauth.js',
+    '~/plugins/firestore.js',
+    '~/plugins/notification.js',
+    '~/plugins/database.js'
+  ],
   router: {
     middleware: 'routerAuth'
   },
