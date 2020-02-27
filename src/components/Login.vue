@@ -12,7 +12,10 @@
 export default {
   name: 'Login',
   props: {
-    types: []
+    types: {
+      type: Array,
+      default: () => ['Login']
+    }
   },
   data() {
     return {

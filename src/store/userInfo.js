@@ -17,10 +17,19 @@ export const getters = {
 }
 
 export const actions = {
-  createInfo({ dispatch }, { userId, infoModel }) {
+  updateInfo({ commit }, { userId, info }) {
+    setInfo(userId, info)
+      .then(() => {
+        commit('setInfo', info)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+  createInfo({ commit }, { userId, infoModel }) {
     setInfo(userId, infoModel)
       .then(() => {
-        dispatch('retriveInfo', userId)
+        commit('setInfo', infoModel)
       })
       .catch((err) => {
         console.log(err)
