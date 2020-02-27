@@ -64,16 +64,7 @@ export const actions = {
 
   login({ commit }, { email, password, type }) {
     if (type === 'Login') {
-      return new Promise((resolve, reject) => {
-        auth
-          .signInWithEmailAndPassword(email, password)
-          .then(() => {
-            resolve()
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
+      return auth.signInWithEmailAndPassword(email, password)
     } else {
       return auth.signInWithPopup(authProviders[type])
     }

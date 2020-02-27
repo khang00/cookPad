@@ -16,11 +16,13 @@ export default (context) => {
         name: user.displayName,
         email: user.email,
         emailVerified: user.emailVerified,
-        uid: user.uid
+        userId: user.uid
       }
       store.dispatch('user/updateUser', userAuth)
+      store.dispatch('userInfo/retriveInfo', userAuth.userId)
     } else {
       store.dispatch('user/updateUser', null)
+      store.dispatch('userInfo/deleteInfo')
     }
   })
 }

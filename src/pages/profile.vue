@@ -1,15 +1,15 @@
 <template>
   <div class="profile">
-    <file-upload />
+    <user-display />
   </div>
 </template>
 
 <script>
-import FileUpload from '../components/FileUpload.vue'
+import UserDisplay from '../components/UserDisplay.vue'
 export default {
   name: 'Profile',
   components: {
-    'file-upload': FileUpload
+    'user-display': UserDisplay
   }
 }
 </script>
