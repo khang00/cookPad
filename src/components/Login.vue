@@ -1,10 +1,20 @@
 <template v-if="typeof user == 'null'">
   <div class="login">
-    <input v-model="email" type="email" />
-    <input v-model="password" type="password" />
-    <button v-for="item in types" :key="item" @click="login(item)">
-      {{ item }}
-    </button>
+    <v-text-field v-model="email" :outlined="true" label="Email" type="email" />
+    <v-text-field
+      v-model="password"
+      :outlined="true"
+      label="Password"
+      type="password"
+    />
+    <v-btn
+      v-for="item in types"
+      :key="item"
+      :outlined="true"
+      color="green lighten-1"
+      @click="login(item)"
+      >{{ item }}</v-btn
+    >
   </div>
 </template>
 

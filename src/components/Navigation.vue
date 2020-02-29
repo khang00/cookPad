@@ -2,8 +2,12 @@
   <div class="nav">
     <div v-if="isLogin" class="user-nav">
       <logout />
-      <nuxt-link to="/profile" class="button--grey">User Profile</nuxt-link>
-      <nuxt-link to="/message" class="button--grey">Messager</nuxt-link>
+      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/profile"
+        >User Profile</v-btn
+      >
+      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/message"
+        >Messager</v-btn
+      >
     </div>
   </div>
 </template>

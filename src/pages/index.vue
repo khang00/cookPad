@@ -18,9 +18,9 @@
         >
           Github
         </a>
-        <nuxt-link to="/login" class="button--green">
-          Login
-        </nuxt-link>
+        <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/login"
+          >Login</v-btn
+        >
       </div>
     </div>
   </div>

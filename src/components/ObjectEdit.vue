@@ -12,7 +12,7 @@
       v-model="newEntity[info]"
     />
     {{ newEntity['name'] }}
-    <button>Finish</button>
+    <v-btn>Finish</v-btn>
   </div>
 </template>
 

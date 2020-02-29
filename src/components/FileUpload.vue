@@ -1,7 +1,7 @@
 <template>
   <div class="file-upload">
     <input type="file" @change="addFile" />
-    <button @click="uploadFiles">Upload File</button>
+    <v-btn @click="uploadFiles">Upload File</v-btn>
   </div>
 </template>
 

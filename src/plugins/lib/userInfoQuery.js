@@ -10,10 +10,10 @@ export const infoType = {
 }
 
 export const infoModel = {
-  DOB: null,
+  name: '',
   avtUrl: '',
   backgroundUrl: '',
-  name: '',
+  DOB: null,
   phone: '',
   gender: ''
 }
@@ -25,4 +25,8 @@ export function getInfo(userId) {
 
 export function setInfo(userId, info) {
   return users.doc(userId).set(info)
+}
+
+export function updateInfo(userId, info) {
+  return users.doc(userId).update(info)
 }

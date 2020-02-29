@@ -1,7 +1,7 @@
 <template>
   <div class="message">
     <input v-model="message" type="text" />
-    <button @click="sendMessage">send</button>
+    <v-btn @click="sendMessage">send</v-btn>
     {{ message }}
   </div>
 </template>

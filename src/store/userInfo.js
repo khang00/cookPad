@@ -1,4 +1,9 @@
-import { getInfo, setInfo, infoModel } from '@/plugins/lib/userInfoQuery.js'
+import {
+  getInfo,
+  setInfo,
+  infoModel,
+  updateInfo
+} from '@/plugins/lib/userInfoQuery.js'
 
 export const state = () => ({
   userInfo: null
@@ -18,7 +23,7 @@ export const getters = {
 
 export const actions = {
   updateInfo({ commit }, { userId, info }) {
-    setInfo(userId, info)
+    updateInfo(userId, info)
       .then(() => {
         commit('setInfo', info)
       })

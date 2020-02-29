@@ -5,7 +5,7 @@
     {{ email }}
     <input v-model="password" type="password" />
     {{ password }}
-    <button @click="createAccount">Create Account</button>
+    <v-btn @click="createAccount">Create Account</v-btn>
   </div>
 </template>
 
