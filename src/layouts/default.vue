@@ -1,8 +1,18 @@
 <template>
   <v-app>
+    <navigation />
     <nuxt />
   </v-app>
 </template>
+
+<script>
+import Navigation from '@/components/Navigation.vue'
+export default {
+  components: {
+    navigation: Navigation
+  }
+}
+</script>
 
 <style>
 html {

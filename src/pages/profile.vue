@@ -1,45 +1,38 @@
 <template>
-  <div class="profile">
-    <user-view v-if="!edit" :entity="UserInfo" :model="model" />
-    <user-edit
-      v-if="edit"
-      :entity="UserInfo"
-      :model="model"
-      @finish="finishEdit"
-    />
+  <div v-if="userInfo" class="user-view">
+    <profile-banner :banners="bannerUrl" />
+    <profile-intro :infos="introInfo" />
   </div>
 </template>
 
 <script>
-import userView from '../components/user/userView.vue'
-import userEdit from '../components/user/userEdit.vue'
-import { infoType } from '../plugins/lib/userInfoQuery'
+import ProfileIntro from '@/components/user/ProfileIntro.vue'
+import ProfileBanner from '@/components/user/ProfileBanner.vue'
 
 export default {
-  name: 'Profile',
+  name: 'UserView',
   components: {
-    'user-view': userView,
-    'user-edit': userEdit
-  },
-  data() {
-    return {
-      model: infoType,
-      edit: false
-    }
+    'profile-intro': ProfileIntro,
+    'profile-banner': ProfileBanner
   },
   computed: {
-    UserInfo() {
+    userInfo() {
       return this.$store.getters['userInfo/getInfo']
+    },
+    introInfo() {
+      const introInfo = { ...this.userInfo }
+      delete introInfo.avtUrl
+      delete introInfo.backgroundUrl
+      return introInfo
+    },
+    bannerUrl() {
+      const bannerUrl = {
+        avtUrl: this.userInfo.avtUrl,
+        backgroundUrl: this.userInfo.backgroundUrl
+      }
+      console.log(bannerUrl)
+      return bannerUrl
     }
-  },
-  methods: {
-    editInfo() {
-      this.edit = true
-    },
-    cancelEdit() {
-      this.edit = false
-    },
-    finishEdit() {}
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="intro">
+  <div class="profile-intro">
     <v-card v-if="!edit" class="intro-view">
       <v-list v-for="(value, name) in infos" :key="name"
         >{{ name }}: {{ value }}</v-list
@@ -61,7 +61,7 @@
 
 <script>
 export default {
-  name: 'Intro',
+  name: 'ProfileIntro',
   props: {
     infos: {
       type: Object,

@@ -19,7 +19,7 @@ export default (context) => {
         userId: user.uid
       }
       store.dispatch('user/updateUser', userAuth)
-      store.dispatch('userInfo/retriveInfo', userAuth.userId)
+      store.dispatch('userInfo/retriveInfo')
     } else {
       store.dispatch('user/updateUser', null)
       store.dispatch('userInfo/deleteInfo')

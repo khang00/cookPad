@@ -1,11 +1,8 @@
 import firebase from './fireinit'
 import 'firebase/storage'
 
-export const storage = firebase.storage().ref()
+const storage = firebase.storage().ref()
+export default storage
 
-/* storage
-  .child('user/images/CKzDwBjlZhaolPYU6rOY_background.jpg')
-  .getDownloadURL()
-  .then((url) => {
-    console.log(url)
-  }) */
+// console.log(storage.child(`user/avt/default.png`).getDownloadURL())
+// console.log(storage.child(`user/background/default.png`).getDownloadURL())

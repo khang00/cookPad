@@ -1,5 +1,4 @@
 import { auth, authProviders } from '@/plugins/fireauth.js'
-import { storage } from '@/plugins/firestore.js'
 
 export const state = () => ({
   user: null
@@ -23,12 +22,6 @@ export const actions = {
       commit('setUser', user)
       resolve()
     })
-  },
-
-  uploadAvatar({ commit, getters }, image) {
-    const user = getters.getUser
-    const userImageStorage = storage.child(`user/images/${user.email}.jpg`)
-    return userImageStorage.put(image)
   },
 
   sendVerificationEmail() {

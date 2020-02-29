@@ -1,10 +1,18 @@
 <template>
   <div>
-    {{ error }}
-    <input v-model="email" type="email" />
-    {{ email }}
-    <input v-model="password" type="password" />
-    {{ password }}
+    <v-text-field v-model="email" type="email" :outlined="true" label="Email" />
+    <v-text-field
+      v-model="password"
+      type="password"
+      :outlined="true"
+      label="Email"
+    />
+    <v-text-field
+      v-model="repassword"
+      type="password"
+      :outlined="true"
+      label="Email"
+    />
     <v-btn @click="createAccount">Create Account</v-btn>
   </div>
 </template>
@@ -16,6 +24,7 @@ export default {
     return {
       email: '',
       password: '',
+      repassword: '',
       error: ''
     }
   },
