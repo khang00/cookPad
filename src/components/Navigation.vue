@@ -1,29 +1,16 @@
 <template>
-  <div class="nav">
-    <div v-if="isLogin" class="user-nav">
-      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/"
-        >Home</v-btn
-      >
-      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/profile"
-        >User Profile</v-btn
-      >
-      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/message"
-        >Messager</v-btn
-      >
-      <logout />
-    </div>
-    <div v-else class="guest-nav">
+  <div v-if="true" class="nav">
+    <div v-for="route in routes" :key="route.path" class="user-nav">
       <v-btn
+        :class="route.name"
         :outlined="true"
         color="green lighten-1"
         :nuxt="true"
-        to="/createAccount"
-        >Create Account</v-btn
-      >
-      <v-btn :outlined="true" color="green lighten-1" :nuxt="true" to="/login"
-        >Login</v-btn
+        :to="route.path"
+        >{{ route.name }}</v-btn
       >
     </div>
+    <logout />
   </div>
 </template>
 
@@ -34,12 +21,29 @@ export default {
   components: {
     logout: Logout
   },
+  data() {
+    return {
+      routes: []
+    }
+  },
   computed: {
     isLogin() {
       return this.$store.getters['user/getUser'] != null
     }
+  },
+  created() {
+    this.$router.options.routes.forEach((route) => {
+      this.routes.push({
+        name: route.name,
+        path: route.path
+      })
+    })
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.nav {
+  width: 20vw;
+}
+</style>

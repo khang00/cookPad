@@ -3,10 +3,8 @@ import {
   setInfo,
   infoModel,
   updateInfo,
-  updateAvtImage,
-  updateBackgroundImage,
-  getUrlAvtImage,
-  getUrlBackgroundImage
+  updatePhotoImage,
+  getUrlPhotoImage
 } from '@/plugins/lib/userAssist.js'
 
 export const state = () => ({
@@ -28,17 +26,9 @@ export const getters = {
 export const actions = {
   uploadAvt({ dispatch, rootGetters }, image) {
     const userId = rootGetters['user/getUser'].userId
-    updateAvtImage(userId, image).then(() => {
-      getUrlAvtImage(userId).then((imageUrl) => {
+    updatePhotoImage(userId, image).then(() => {
+      getUrlPhotoImage(userId).then((imageUrl) => {
         dispatch('updateInfo', { avtUrl: imageUrl })
-      })
-    })
-  },
-  uploadBackground({ dispatch, rootGetters }, image) {
-    const userId = rootGetters['user/getUser'].userId
-    updateBackgroundImage(userId, image).then(() => {
-      getUrlBackgroundImage(userId).then((imageUrl) => {
-        dispatch('updateInfo', { backgroundUrl: imageUrl })
       })
     })
   },
@@ -53,8 +43,10 @@ export const actions = {
       })
   },
   createInfo({ commit, rootGetters }, { infoModel }) {
-    const userId = rootGetters['user/getUser'].userId
-    setInfo(userId, infoModel)
+    const user = rootGetters['user/getUser']
+    infoModel.email = user.email
+    infoModel.displayName = user.name
+    setInfo(user.userId, infoModel)
       .then(() => {
         commit('setInfo', infoModel)
       })

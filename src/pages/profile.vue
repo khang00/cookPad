@@ -1,40 +1,25 @@
 <template>
-  <div v-if="userInfo" class="user-view">
-    <profile-banner :banners="bannerUrl" />
-    <profile-intro :infos="introInfo" />
+  <div class="profile">
+    <user-info />
+    <div class="post-wrapper"></div>
   </div>
 </template>
 
 <script>
-import ProfileIntro from '@/components/user/ProfileIntro.vue'
-import ProfileBanner from '@/components/user/ProfileBanner.vue'
+import UserInfo from '@/components/user/UserInfo.vue'
 
 export default {
-  name: 'UserView',
+  name: 'Profile',
   components: {
-    'profile-intro': ProfileIntro,
-    'profile-banner': ProfileBanner
-  },
-  computed: {
-    userInfo() {
-      return this.$store.getters['userInfo/getInfo']
-    },
-    introInfo() {
-      const introInfo = { ...this.userInfo }
-      delete introInfo.avtUrl
-      delete introInfo.backgroundUrl
-      return introInfo
-    },
-    bannerUrl() {
-      const bannerUrl = {
-        avtUrl: this.userInfo.avtUrl,
-        backgroundUrl: this.userInfo.backgroundUrl
-      }
-      console.log(bannerUrl)
-      return bannerUrl
-    }
+    'user-info': UserInfo
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.post-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1vw 1vw;
+}
+</style>
