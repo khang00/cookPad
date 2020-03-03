@@ -33,6 +33,5 @@ html {
 .applicaiton-wrapper {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  background: #fafafa;
 }
 </style>

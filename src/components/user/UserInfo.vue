@@ -1,6 +1,6 @@
 <template>
   <div class="profile-intro">
-    <v-card v-if="!edit" :flat="true" :tile="true" class="intro-view">
+    <v-card :flat="true" :tile="true" class="intro-view">
       <div class="filter"></div>
       <v-avatar class="avatar" size="12vw">
         <v-img :src="photoUrl"></v-img>
@@ -12,7 +12,7 @@
           {{ name === 'followers' || name === 'following' ? name : '' }}
         </p>
         <v-btn
-          v-if="!edit"
+          v-if="user.userId"
           :block="true"
           class="edit"
           :outlined="true"
@@ -22,38 +22,20 @@
         >
       </div>
     </v-card>
-
-    <div v-if="edit" class="intro-edit">
-      <div v-for="(value, name) in userInfo" :key="name">
-        <v-text-field
-          v-model="infoEdited[name]"
-          :label="name"
-          :outlined="true"
-          :placeholder="value"
-        />
-      </div>
-    </div>
-
-    <v-btn
-      v-if="edit"
-      :outlined="true"
-      color="green lighten-1"
-      @click="finishEdit"
-      >Finish</v-btn
-    >
-    <v-btn
-      v-if="edit"
-      :outlined="true"
-      color="green lighten-1"
-      @click="cancelEdit"
-      >Cancel</v-btn
-    >
   </div>
 </template>
 
 <script>
 export default {
   name: 'UserInfo',
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       edit: false,
@@ -64,11 +46,8 @@ export default {
     user() {
       return this.$store.getters['user/getUser']
     },
-    userInfo() {
-      return this.$store.getters['userInfo/getInfo']
-    },
     userPublicInfo() {
-      const infos = { ...this.$store.getters['userInfo/getInfo'] }
+      const infos = { ...this.userInfo }
       delete infos.email
       delete infos.phone
       delete infos.photoUrl
@@ -80,17 +59,7 @@ export default {
   },
   methods: {
     editInfo() {
-      this.edit = true
-    },
-    cancelEdit() {
-      this.edit = false
-    },
-    finishEdit() {
-      this.$store.dispatch('userInfo/updateInfo', {
-        userId: this.user.userId,
-        info: this.infoEdited
-      })
-      this.edit = false
+      return 0
     }
   }
 }
@@ -98,7 +67,6 @@ export default {
 
 <style lang="scss" scoped>
 .intro-view {
-  background: #fafafa;
   padding: 3vh 0%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

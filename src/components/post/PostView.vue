@@ -1,8 +1,10 @@
-<template><div class="post"></div></template>
+<template>
+  <div class="post-view"></div>
+</template>
 
 <script>
 export default {
-  name: 'UserPost'
+  name: 'PostView'
 }
 </script>
 
