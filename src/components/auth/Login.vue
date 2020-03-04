@@ -1,21 +1,45 @@
 <template v-if="typeof user == 'null'">
-  <div class="login">
-    <v-text-field v-model="email" :outlined="true" label="Email" type="email" />
+  <v-card class="login-wrapper">
+    <v-card-title class="headline">Login</v-card-title>
+    <v-text-field
+      v-model="email"
+      color="yellow darken-3"
+      label="Email"
+      type="email"
+      :filled="true"
+      :outlined="true"
+    />
     <v-text-field
       v-model="password"
-      :outlined="true"
+      color="yellow darken-3"
       label="Password"
       type="password"
-    />
-    <v-btn
-      v-for="item in types"
-      :key="item"
       :outlined="true"
-      color="green lighten-1"
-      @click="login(item)"
-      >{{ item }}</v-btn
-    >
-  </div>
+      :filled="true"
+    />
+    <div class="login-type">
+      <v-btn
+        class="Login white--text"
+        color="yellow darken-3"
+        @click="login('Login')"
+        >Login</v-btn
+      >
+      <div class="or">
+        <hr />
+        <hr />
+      </div>
+      <v-btn
+        v-for="item in types"
+        :key="item"
+        icon
+        :class="item"
+        class="white--text social"
+        :color="icon[item][1]"
+        @click="login(item)"
+        ><v-icon>fab fa-{{ icon[item][0] }}</v-icon></v-btn
+      >
+    </div>
+  </v-card>
 </template>
 
 <script>
@@ -24,14 +48,20 @@ export default {
   props: {
     types: {
       type: Array,
-      default: () => ['Login']
+      default: () => []
     }
   },
   data() {
     return {
       email: '',
       password: '',
-      error: ''
+      error: '',
+      icon: {
+        Twitter: ['twitter', 'light-blue lighten-1'],
+        Google: ['google', 'red darken-3'],
+        Facebook: ['facebook-f', 'blue darken-3'],
+        Github: ['github', 'grey darken-4']
+      }
     }
   },
   computed: {
@@ -58,4 +88,30 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="scss" scoped>
+.login-wrapper {
+  height: 54vh;
+  padding: 2vw;
+}
+.login-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: stretch;
+  grid-gap: 2vh 0vw;
+  .Login {
+    grid-column: 1 / span 4;
+  }
+  .social {
+    justify-self: center;
+  }
+  .or {
+    grid-column: 1 / span 4;
+    hr {
+      background-color: #eee;
+      border: 0 none;
+      color: #eee;
+      height: 0.75px;
+    }
+  }
+}
+</style>

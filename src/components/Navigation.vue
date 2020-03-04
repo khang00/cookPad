@@ -6,7 +6,8 @@
           v-if="route.name != 'login'"
           :class="route.name"
           :outlined="true"
-          color="grey lighten-1"
+          class="white--text"
+          color="yellow darken-3"
           :nuxt="true"
           :to="route.path"
           >{{ route.name }}</v-btn
@@ -15,10 +16,14 @@
       <logout />
     </div>
     <div v-else class="guest-nav">
-      <v-btn :outlined="true" color="grey lighten-1" :nuxt="true" to="/"
+      <v-btn class="white--text" color="yellow darken-3" :nuxt="true" to="/"
         >Home</v-btn
       >
-      <v-btn :outlined="true" color="grey lighten-1" :nuxt="true" to="/login"
+      <v-btn
+        class="white--text"
+        color="yellow darken-3"
+        :nuxt="true"
+        to="/login"
         >Login</v-btn
       >
     </div>

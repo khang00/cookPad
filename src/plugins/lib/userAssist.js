@@ -25,6 +25,14 @@ export function updatePhotoImage(userId, image) {
   return storage.child(`${userStorePath}/${userId}`).put(image)
 }
 
+export function getInfoByEmail(email) {
+  return usersDB.where('email', '==', email).get()
+}
+
+export function getInfoByDisplayName(displayName) {
+  return usersDB.where('displayName', '==', displayName).get()
+}
+
 export function getInfo(userId) {
   return usersDB.doc(userId).get()
 }

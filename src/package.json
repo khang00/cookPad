@@ -21,6 +21,8 @@
     "webpack": "^4.41.6"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@mdi/font": "^4.9.95",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.0",

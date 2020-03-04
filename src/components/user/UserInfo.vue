@@ -14,9 +14,9 @@
         <v-btn
           v-if="user.userId"
           :block="true"
-          class="edit"
+          class="edit white--text"
           :outlined="true"
-          color="grey lighten-1"
+          color="yellow darken-3"
           @click="editInfo"
           >Edit Profile</v-btn
         >

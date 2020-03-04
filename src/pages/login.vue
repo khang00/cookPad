@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <login :types="['Login', 'Google', 'Facebook']" />
+    <login :types="['Google', 'Facebook', 'Twitter', 'Github']" />
     <create-account />
   </div>
 </template>
@@ -17,4 +17,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrapper {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1vh 2vw;
+  align-items: center;
+}
+</style>

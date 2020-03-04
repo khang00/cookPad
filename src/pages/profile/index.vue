@@ -2,7 +2,11 @@
   <div v-if="UserInfo" class="profile">
     <user-info :user-info="UserInfo" />
     <user-post />
-    <v-btn :outlined="true" color="grey lighten-1" :nuxt="true" to="profile/123"
+    <v-btn
+      class="white--text"
+      color="yellow darken-3"
+      :nuxt="true"
+      to="profile/123"
       >Home</v-btn
     >
   </div>

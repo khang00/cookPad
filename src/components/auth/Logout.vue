@@ -1,5 +1,7 @@
 <template>
-  <v-btn :outlined="true" color="grey lighten-1" @click="logout">Logout</v-btn>
+  <v-btn class="white--text" color="yellow darken-3" @click="logout"
+    >Logout</v-btn
+  >
 </template>
 
 <script>

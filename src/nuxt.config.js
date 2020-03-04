@@ -32,7 +32,8 @@ export default {
     '~/plugins/fireauth.js',
     '~/plugins/firestore.js',
     '~/plugins/notification.js',
-    '~/plugins/database.js'
+    '~/plugins/database.js',
+    '~/plugins/vuetify/vuetify.js'
   ],
   router: {
     middleware: 'routerAuth'
