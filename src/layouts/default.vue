@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="applicaiton-wrapper">
-      <navigation />
+      <navigation class="navigation-wrapper" />
       <nuxt class="main-wrapper" />
     </div>
   </v-app>
@@ -33,5 +33,6 @@ html {
 .applicaiton-wrapper {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  margin-top: 10vh;
 }
 </style>
