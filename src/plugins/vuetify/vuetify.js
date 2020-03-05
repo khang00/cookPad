@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import colors from 'vuetify/lib/util/colors'
 
 Vue.use(Vuetify)
 
@@ -11,7 +12,13 @@ export default (ctx) => {
       iconfont: 'fa'
     },
     theme: {
-      dark: false // From 2.0 You have to select the theme dark or light here
+      themes: {
+        pink: {
+          primary: colors.pink.lighten2,
+          secondary: colors.pink.lighten4,
+          accent: colors.indigo.base
+        }
+      }
     }
   })
   ctx.app.vuetify = vuetify

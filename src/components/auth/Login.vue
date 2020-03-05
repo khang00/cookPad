@@ -1,5 +1,5 @@
 <template v-if="typeof user == 'null'">
-  <v-card class="login-wrapper">
+  <v-card elevation="6" class="login-wrapper">
     <v-card-title class="headline">Login</v-card-title>
     <v-text-field
       v-model="email"
@@ -19,15 +19,16 @@
     />
     <div class="login-type">
       <v-btn
+        :loading="loading"
         class="Login white--text"
         color="yellow darken-3"
         @click="login('Login')"
         >Login</v-btn
       >
-      <div class="or">
-        <hr />
-        <hr />
-      </div>
+      <v-divider></v-divider>
+      <v-divider></v-divider>
+      <v-divider></v-divider>
+      <v-divider></v-divider>
       <v-btn
         v-for="item in types"
         :key="item"
@@ -56,6 +57,7 @@ export default {
       email: '',
       password: '',
       error: '',
+      loading: false,
       icon: {
         Twitter: ['twitter', 'light-blue lighten-1'],
         Google: ['google', 'red darken-3'],
@@ -71,6 +73,7 @@ export default {
   },
   methods: {
     login(type) {
+      this.loading = true
       this.$store
         .dispatch('user/login', {
           email: this.email,
@@ -78,9 +81,11 @@ export default {
           type
         })
         .then(() => {
+          this.loading = false
           this.$router.push('/')
         })
         .catch((error) => {
+          this.loading = false
           this.error = error
         })
     }
@@ -103,15 +108,6 @@ export default {
   }
   .social {
     justify-self: center;
-  }
-  .or {
-    grid-column: 1 / span 4;
-    hr {
-      background-color: #eee;
-      border: 0 none;
-      color: #eee;
-      height: 0.75px;
-    }
   }
 }
 </style>

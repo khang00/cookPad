@@ -22,7 +22,7 @@ export default {
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1vh 2vw;
+  grid-gap: 1vh 3vw;
   align-items: center;
 }
 </style>

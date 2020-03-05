@@ -1,11 +1,10 @@
 <template>
-  <v-card class="create-wrapper">
+  <v-card class="create-wrapper" elevation="6" color="yellow darken-3" dark>
     <v-card-title class="headline">Create Account</v-card-title>
     <v-text-field
       v-model="email"
       :outlined="true"
       :filled="true"
-      color="yellow darken-3"
       type="email"
       label="Email"
     />
@@ -13,7 +12,6 @@
       v-model="password"
       :filled="true"
       :outlined="true"
-      color="yellow darken-3"
       type="password"
       label="Password"
     />
@@ -21,11 +19,10 @@
       v-model="repassword"
       :filled="true"
       :outlined="true"
-      color="yellow darken-3"
       type="password"
-      label="Retype-password"
+      label="Confirm Password"
     />
-    <v-btn class="white--text" color="yellow darken-3" @click="createAccount"
+    <v-btn :loading="loading" outlined @click="createAccount"
       >Create Account</v-btn
     >
   </v-card>
@@ -39,12 +36,14 @@ export default {
       email: '',
       password: '',
       repassword: '',
-      error: ''
+      error: '',
+      loading: false
     }
   },
   methods: {
     createAccount() {
       if (this.email === this.password) {
+        this.loading = true
         this.$store
           .dispatch('user/createAccount', {
             email: this.email,
@@ -57,6 +56,7 @@ export default {
             this.error = error
           })
       } else {
+        this.loading = false
         this.error = 'Password is not the same'
       }
     }
