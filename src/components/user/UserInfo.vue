@@ -1,8 +1,30 @@
 <template>
   <div class="profile-intro">
+    <v-dialog
+      v-model="imageCropper"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="yellow darken-3" flat>
+          <v-btn icon dark @click="imageCropper = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Image Upload</v-toolbar-title>
+        </v-toolbar>
+
+        <v-list>
+          <v-list-item>
+            <avatar-cropper @close="imageCropper = false" />
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-dialog>
+
     <v-card :flat="true" :tile="true" class="intro-view">
       <div class="filter"></div>
-      <v-avatar class="avatar" size="12vw">
+      <v-avatar class="avatar" size="12vw" @click="imageCropper = true">
         <v-img :src="photoUrl"></v-img>
       </v-avatar>
       <div class="public-info">
@@ -26,8 +48,13 @@
 </template>
 
 <script>
+import imageCropper from '@/components/Image/ImageCropper.vue'
+
 export default {
   name: 'UserInfo',
+  components: {
+    'avatar-cropper': imageCropper
+  },
   props: {
     userInfo: {
       type: Object,
@@ -39,6 +66,7 @@ export default {
   data() {
     return {
       edit: false,
+      imageCropper: false,
       infoEdited: { ...this.userInfo }
     }
   },
@@ -75,6 +103,9 @@ export default {
 
   .avatar {
     margin: 0% 4vw;
+    :hover {
+      cursor: pointer;
+    }
   }
   .public-info {
     display: grid;

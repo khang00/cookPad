@@ -28,7 +28,7 @@ export const actions = {
     const userId = rootGetters['user/getUser'].userId
     updatePhotoImage(userId, image).then(() => {
       getUrlPhotoImage(userId).then((imageUrl) => {
-        dispatch('updateInfo', { avtUrl: imageUrl })
+        dispatch('updateInfo', { info: { photoUrl: imageUrl } })
       })
     })
   },

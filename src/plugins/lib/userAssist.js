@@ -18,11 +18,11 @@ export const infoModel = {
 }
 
 export function getUrlPhotoImage(userId) {
-  return storage.child(`${userStorePath}/${userId}`).getDownloadURL()
+  return storage.child(`${userStorePath}/${userId}.jpg`).getDownloadURL()
 }
 
 export function updatePhotoImage(userId, image) {
-  return storage.child(`${userStorePath}/${userId}`).put(image)
+  return storage.child(`${userStorePath}/${userId}.jpg`).put(image)
 }
 
 export function getInfoByEmail(email) {
