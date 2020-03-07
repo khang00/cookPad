@@ -31,13 +31,7 @@
           </template>
         </v-file-input>
       </v-card-actions>
-      <v-card
-        v-if="newAvatar"
-        max-height="50%"
-        class="ma-3 pa-2"
-        outlined
-        hover
-      >
+      <v-card v-if="newAvatar" max-height="50%" class="ma-3 pa-2" outlined>
         <v-card-actions>
           <v-responsive :aspect-ratio="1">
             <v-img
@@ -61,8 +55,42 @@
       </v-card>
     </div>
     <v-divider vertical></v-divider>
-    <div class="info-editor mr-3">
+    <div class="info-editor mr-3 ml-3">
       <v-card-title>Change Your Information</v-card-title>
+      <v-card-actions v-if="userInfo">
+        <v-form>
+          <v-text-field
+            v-model="newInfo.displayName"
+            color="yellow darken-3"
+            label="Your Name"
+            :placeholder="userInfo.displayName"
+            outlined
+          ></v-text-field>
+          <v-text-field
+            v-model="newInfo.phone"
+            :rules="[phoneValidator]"
+            :error-messages="errorMessages"
+            color="yellow darken-3"
+            label="Your Phone"
+            :placeholder="userInfo.phone"
+            outlined
+          ></v-text-field>
+          <v-textarea
+            v-model="newInfo.bio"
+            color="yellow darken-3"
+            label="Your Bio"
+            :placeholder="userInfo.bio"
+            outlined
+          ></v-textarea>
+          <v-btn
+            :loading="loadingInfo"
+            class="white--text"
+            color="yellow darken-3"
+            @click="updateInfo"
+            >Save</v-btn
+          >
+        </v-form>
+      </v-card-actions>
     </div>
   </div>
 </template>
@@ -72,7 +100,12 @@ export default {
   name: 'UserInfoEditor',
   data() {
     return {
-      newInfo: {},
+      newInfo: {
+        displayName: '',
+        bio: '',
+        phone: ''
+      },
+      errorMessages: '',
       newAvatar: null,
       loadingAvt: false,
       loadingInfo: false,
@@ -90,8 +123,27 @@ export default {
   },
   methods: {
     updateInfo() {
+      const info = {}
       this.loadingInfo = true
-      this.$store.dispatch('userInfo/updateInfo', this.newInfo).then(() => {
+      if (
+        this.userInfo.displayName !== this.newInfo.displayName &&
+        this.newInfo.displayName !== ''
+      ) {
+        info.displayName = this.newInfo.displayName
+      }
+
+      if (
+        this.userInfo.phone !== this.newInfo.phone &&
+        this.newInfo.phone !== ''
+      ) {
+        info.phone = this.newInfo.phone
+      }
+
+      if (this.userInfo.bio !== this.newInfo.bio && this.newInfo.bio !== '') {
+        info.bio = this.newInfo.bio
+      }
+      console.log(info)
+      this.$store.dispatch('userInfo/updateInfo', { info }).then(() => {
         this.loadingInfo = false
         this.infoUpdate = true
       })
@@ -102,6 +154,12 @@ export default {
         this.loadingAvt = false
         this.avtUpdate = true
       })
+    },
+    phoneValidator() {
+      if (this.newInfo.phone.search(/[^0-9]+/gi) !== -1) {
+        return 'This field must not contain characters'
+      }
+      return true
     }
   }
 }
