@@ -1,30 +1,25 @@
 <template>
   <div class="profile-intro">
     <v-dialog
-      v-model="imageCropper"
+      v-model="edit"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
     >
       <v-card>
         <v-toolbar dark color="yellow darken-3" flat>
-          <v-btn icon dark @click="imageCropper = false">
+          <v-btn icon dark @click="edit = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Image Upload</v-toolbar-title>
+          <v-toolbar-title>Edit Personal Information</v-toolbar-title>
         </v-toolbar>
-
-        <v-list>
-          <v-list-item>
-            <avatar-cropper @close="imageCropper = false" />
-          </v-list-item>
-        </v-list>
+        <info-editor />
       </v-card>
     </v-dialog>
 
     <v-card :flat="true" :tile="true" class="intro-view">
       <div class="filter"></div>
-      <v-avatar class="avatar" size="12vw" @click="imageCropper = true">
+      <v-avatar class="avatar" size="12vw">
         <v-img :src="photoUrl"></v-img>
       </v-avatar>
       <div class="public-info">
@@ -35,11 +30,9 @@
         </p>
         <v-btn
           v-if="user.userId"
-          :block="true"
           class="edit white--text"
-          :outlined="true"
           color="yellow darken-3"
-          @click="editInfo"
+          @click="edit = !edit"
           >Edit Profile</v-btn
         >
       </div>
@@ -48,12 +41,12 @@
 </template>
 
 <script>
-import imageCropper from '@/components/Image/ImageCropper.vue'
+import UserInfoEditor from '@/components/user/UserInfoEditor.vue'
 
 export default {
   name: 'UserInfo',
   components: {
-    'avatar-cropper': imageCropper
+    'info-editor': UserInfoEditor
   },
   props: {
     userInfo: {
@@ -66,7 +59,6 @@ export default {
   data() {
     return {
       edit: false,
-      imageCropper: false,
       infoEdited: { ...this.userInfo }
     }
   },
@@ -83,11 +75,6 @@ export default {
     },
     photoUrl() {
       return this.userInfo.photoUrl
-    }
-  },
-  methods: {
-    editInfo() {
-      return 0
     }
   }
 }

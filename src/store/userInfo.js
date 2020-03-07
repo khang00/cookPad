@@ -25,43 +25,70 @@ export const getters = {
 
 export const actions = {
   uploadAvt({ dispatch, rootGetters }, image) {
-    const userId = rootGetters['user/getUser'].userId
-    updatePhotoImage(userId, image).then(() => {
-      getUrlPhotoImage(userId).then((imageUrl) => {
-        dispatch('updateInfo', { info: { photoUrl: imageUrl } })
-      })
+    return new Promise((resolve, reject) => {
+      const userId = rootGetters['user/getUser'].userId
+      updatePhotoImage(userId, image)
+        .then(() => {
+          getUrlPhotoImage(userId).then((imageUrl) => {
+            dispatch('updateInfo', { info: { photoUrl: imageUrl } }).then(
+              () => {
+                resolve()
+              }
+            )
+          })
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   },
   updateInfo({ dispatch, rootGetters }, { info }) {
-    const userId = rootGetters['user/getUser'].userId
-    updateInfo(userId, info)
-      .then(() => {
-        dispatch('retriveInfo')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    return new Promise((resolve, reject) => {
+      const userId = rootGetters['user/getUser'].userId
+      updateInfo(userId, info)
+        .then(() => {
+          dispatch('retriveInfo').then(() => {
+            resolve()
+          })
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
   },
   createInfo({ commit, rootGetters }, { infoModel }) {
-    const user = rootGetters['user/getUser']
-    infoModel.email = user.email
-    infoModel.displayName = user.name
-    setInfo(user.userId, infoModel)
-      .then(() => {
-        commit('setInfo', infoModel)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    return new Promise((resolve, reject) => {
+      const user = rootGetters['user/getUser']
+      infoModel.email = user.email
+      infoModel.displayName = user.name
+      setInfo(user.userId, infoModel)
+        .then(() => {
+          commit('setInfo', infoModel)
+          resolve()
+        })
+        .catch((err) => {
+          console.log(err)
+          reject(err)
+        })
+    })
   },
   retriveInfo({ commit, dispatch, rootGetters }) {
-    const userId = rootGetters['user/getUser'].userId
-    getInfo(userId).then((doc) => {
-      if (doc.exists) {
-        commit('setInfo', doc.data())
-      } else {
-        dispatch('createInfo', { infoModel })
-      }
+    return new Promise((resolve, reject) => {
+      const userId = rootGetters['user/getUser'].userId
+      getInfo(userId)
+        .then((doc) => {
+          if (doc.exists) {
+            commit('setInfo', doc.data())
+            resolve()
+          } else {
+            dispatch('createInfo', { infoModel }).then(() => {
+              resolve()
+            })
+          }
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   },
   deleteInfo({ commit }) {
