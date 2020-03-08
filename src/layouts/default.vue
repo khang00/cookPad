@@ -33,6 +33,6 @@ html {
 .applicaiton-wrapper {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  margin-top: 6.5vh;
+  margin-top: 8vh;
 }
 </style>

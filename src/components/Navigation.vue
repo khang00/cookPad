@@ -32,7 +32,7 @@
       <v-navigation-drawer
         v-model="drawer"
         height="100vh"
-        width="18vw"
+        width="19.5vw"
         :absolute="!pined"
         :temporary="!pined"
         :mini-variant="pined && minimized"

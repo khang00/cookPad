@@ -11,7 +11,7 @@
           accept="image/*"
           multiple
           placeholder="Select your new avatar"
-          prepend-icon="mdi-paperclip"
+          prepend-icon="fas fa-camera"
           outlined
           :success="avtUpdate"
           :clearable="false"
@@ -31,34 +31,25 @@
           </template>
         </v-file-input>
       </v-card-actions>
-      <v-card v-if="newAvatar" max-height="50%" class="ma-3 pa-2" outlined>
-        <v-card-actions>
-          <v-responsive :aspect-ratio="1">
-            <v-img
-              max-height="50%"
-              :aspect-ratio="1"
-              :src="displayImage"
-              contain
-            >
-            </v-img>
-            <v-btn
-              class="mt-6 ml-6 white--text"
-              color="yellow darken-3"
-              width="90%"
-              :loading="loadingAvt"
-              @click="updateAvatar()"
-            >
-              Upload Image
-            </v-btn>
-          </v-responsive>
-        </v-card-actions>
-      </v-card>
+      <v-card-actions v-if="newAvatar" class="image-viewer">
+        <v-img width="40%" :aspect-ratio="1" :src="displayImage" contain>
+        </v-img>
+        <v-btn
+          class="mt-6 ml-6 white--text"
+          color="yellow darken-3"
+          width="90%"
+          :loading="loadingAvt"
+          @click="updateAvatar()"
+        >
+          Upload Image
+        </v-btn>
+      </v-card-actions>
     </div>
-    <v-divider vertical></v-divider>
+    <v-divider vertical inset></v-divider>
     <div class="info-editor mr-3 ml-3">
       <v-card-title>Change Your Information</v-card-title>
       <v-card-actions v-if="userInfo">
-        <v-form>
+        <v-form class="form">
           <v-text-field
             v-model="newInfo.displayName"
             color="yellow darken-3"
@@ -79,13 +70,18 @@
             v-model="newInfo.bio"
             color="yellow darken-3"
             label="Your Bio"
+            :error-messages="errorMessages"
+            :rules="[bioValidator]"
             :placeholder="userInfo.bio"
+            :auto-grow="false"
+            counter="100"
             outlined
           ></v-textarea>
           <v-btn
             :loading="loadingInfo"
             class="white--text"
             color="yellow darken-3"
+            block
             @click="updateInfo"
             >Save</v-btn
           >
@@ -160,20 +156,39 @@ export default {
         return 'This field must not contain characters'
       }
       return true
+    },
+    bioValidator() {
+      return this.newInfo.bio.length < 100
+        ? true
+        : 'bio must be less than 100 words'
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+$width-ratio: 100% * 1/3;
+
 .user-editor {
   display: flex;
-
+  width: 100%;
+  height: 80vh;
   .avt-editor {
-    width: 49.5%;
+    width: $width-ratio * 2;
+
+    .image-viewer {
+      display: grid;
+      height: 70%;
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
   }
   .info-editor {
-    width: 49.5%;
+    width: $width-ratio;
+
+    .form {
+      width: 100%;
+    }
   }
 }
 </style>

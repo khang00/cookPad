@@ -14,7 +14,8 @@ export const infoModel = {
   phone: '',
   bio: '',
   followers: 0,
-  following: 0
+  following: 0,
+  posts: 0
 }
 
 export function getUrlPhotoImage(userId) {
