@@ -23,20 +23,16 @@
         <v-img :src="photoUrl"></v-img>
       </v-avatar>
       <div class="public-info">
-        <p v-for="(value, name) in userPublicInfo" :key="name" :class="name">
-          <b
+        <div v-for="(value, name) in userPublicInfo" :key="name" :class="name">
+          <p
             v-if="
               name === 'followers' || name === 'following' || name === 'posts'
             "
-            >{{ value }}</b
           >
-          <span v-else>{{ value }}</span>
-          {{
-            name === 'followers' || name === 'following' || name === 'posts'
-              ? name
-              : ''
-          }}
-        </p>
+            {{ name }} <b>{{ value }}</b>
+          </p>
+          <p v-else>{{ value }}</p>
+        </div>
         <v-btn
           v-if="user.userId"
           class="edit white--text"
@@ -103,9 +99,7 @@ export default {
 
   .public-info {
     display: grid;
-    width: 23vw;
     grid-template-columns: 1fr 1fr 1fr;
-
     .displayName {
       order: 1;
       grid-column: 1 / span 3;
@@ -127,6 +121,8 @@ export default {
       order: 4;
     }
     .bio {
+      word-wrap: break-word;
+      overflow: hidden;
       align-self: start;
       order: 5;
       grid-column: 1 / span 3;
