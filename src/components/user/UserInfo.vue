@@ -26,7 +26,7 @@
         <div v-for="(value, name) in userPublicInfo" :key="name" :class="name">
           <p
             v-if="
-              name === 'followers' || name === 'following' || name === 'posts'
+              name === 'followers' || name === 'followings' || name === 'posts'
             "
           >
             {{ name }} <b>{{ value }}</b>
@@ -116,7 +116,7 @@ export default {
       align-self: start;
       order: 3;
     }
-    .following {
+    .followings {
       align-self: start;
       order: 4;
     }

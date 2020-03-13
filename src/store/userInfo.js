@@ -13,6 +13,7 @@ export const state = () => ({
 
 export const mutations = {
   setInfo(state, userInfo) {
+    delete userInfo.uid
     state.userInfo = userInfo
   }
 }
@@ -76,9 +77,9 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const userId = rootGetters['user/getUser'].userId
       getInfo(userId)
-        .then((doc) => {
-          if (doc.exists) {
-            commit('setInfo', doc.data())
+        .then((userInfo) => {
+          if (userInfo !== null) {
+            commit('setInfo', userInfo)
             resolve()
           } else {
             dispatch('createInfo', { infoModel }).then(() => {

@@ -13,9 +13,69 @@ export const infoModel = {
   photoUrl: defaultPhoto,
   phone: '',
   bio: '',
-  followers: 0,
-  following: 0,
   posts: 0
+}
+
+function computeFollwers(userCollSnapshot) {
+  return new Promise((resolve, reject) => {
+    const followersArr = []
+    userCollSnapshot.ref
+      .collection('followers')
+      .get()
+      .then((followers) => {
+        followers.forEach((document) => {
+          followersArr.push(document.data())
+        })
+        resolve(followersArr)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+function computeFollowings(userCollSnapshot) {
+  return new Promise((resolve, reject) => {
+    const followingsArr = []
+    userCollSnapshot.ref
+      .collection('following')
+      .get()
+      .then((followings) => {
+        followings.forEach((document) => {
+          followingsArr.push(document.data())
+        })
+        resolve(followingsArr)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export function getInfo(userId) {
+  return new Promise((resolve, reject) => {
+    let userInfo = {}
+    usersDB
+      .doc(userId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          userInfo = snapshot.data()
+          computeFollwers(snapshot).then((followersArr) => {
+            userInfo.followers = followersArr.length
+            computeFollowings(snapshot).then((followingsArr) => {
+              userInfo.followings = followingsArr.length
+              resolve(userInfo)
+            })
+          })
+        } else {
+          resolve(null)
+        }
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
 }
 
 export function getUrlPhotoImage(userId) {
@@ -32,10 +92,6 @@ export function getInfoByEmail(email) {
 
 export function getInfoByDisplayName(displayName) {
   return usersDB.where('displayName', '==', displayName).get()
-}
-
-export function getInfo(userId) {
-  return usersDB.doc(userId).get()
 }
 
 export function setInfo(userId, info) {
