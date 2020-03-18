@@ -18,7 +18,9 @@
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.2",
     "vee-validate": "^3.2.5",
+    "vue": "2.6.11",
     "vue-cropperjs": "^4.0.1",
+    "vue-template-compiler": "2.6.11",
     "webpack": "^4.41.6"
   },
   "devDependencies": {
