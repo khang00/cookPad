@@ -12,7 +12,7 @@ export const mutations = {
 
 export const getters = {
   getUsers(state) {
-    return state.userInfo
+    return state.users
   }
 }
 

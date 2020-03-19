@@ -1,16 +1,9 @@
 <template v-if="this.user">
-  <v-card class="user-card" outlined>
-    <v-list-item>
-      <v-list-item-avatar>
-        <v-img :src="user.photoUrl"></v-img>
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-title class="title">{{
-          user.displayName
-        }}</v-list-item-title>
-        <v-list-item-subtitle>{{ user.bio }}</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+  <v-card class="user-card mx-auto" width="18vw" outlined>
+    <v-img class="white--text align-end" height="200px" :src="user.photoUrl">
+    </v-img>
+    <v-card-title>{{ user.displayName }}</v-card-title>
+    <v-card-text>{{ user.bio }}</v-card-text>
   </v-card>
 </template>
 

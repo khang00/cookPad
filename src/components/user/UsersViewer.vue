@@ -27,6 +27,6 @@ export default {
   margin-top: 3vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1vw;
+  grid-gap: 2vw;
 }
 </style>
