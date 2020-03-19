@@ -29,7 +29,7 @@
               name === 'followers' || name === 'followings' || name === 'posts'
             "
           >
-            {{ name }} <b>{{ value }}</b>
+            {{ name }} <b>{{ value.length }}</b>
           </p>
           <p v-else>{{ value }}</p>
         </div>

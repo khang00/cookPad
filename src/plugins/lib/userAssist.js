@@ -16,6 +16,24 @@ export const infoModel = {
   posts: 0
 }
 
+function computePosts(userCollSnapshot) {
+  return new Promise((resolve, reject) => {
+    const postsArr = []
+    userCollSnapshot.ref
+      .collection('posts')
+      .get()
+      .then((posts) => {
+        posts.forEach((document) => {
+          postsArr.push(document.data())
+        })
+        resolve(postsArr)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
 function computeFollwers(userCollSnapshot) {
   return new Promise((resolve, reject) => {
     const followersArr = []
@@ -62,10 +80,13 @@ export function getInfo(userId) {
         if (snapshot.exists) {
           userInfo = snapshot.data()
           computeFollwers(snapshot).then((followersArr) => {
-            userInfo.followers = followersArr.length
+            userInfo.followers = followersArr
             computeFollowings(snapshot).then((followingsArr) => {
-              userInfo.followings = followingsArr.length
-              resolve(userInfo)
+              userInfo.followings = followingsArr
+              computePosts(snapshot).then((postsArr) => {
+                userInfo.posts = postsArr
+                resolve(userInfo)
+              })
             })
           })
         } else {
