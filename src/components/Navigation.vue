@@ -5,26 +5,18 @@
         class="hidden-sm-and-down"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title class="title mr-6 hidden-sm-and-down"
-        >CheftPad</v-toolbar-title
-      >
       <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="mt-4">
-        <v-autocomplete
-          background-color="white"
-          color="yellow darken-3"
-          prepend-inner-icon="fas fa-search"
-          placeholder="Start typing to Search"
-          clearable
-          solo
-          light
-          hide-no-data
-          hide-selected
-        ></v-autocomplete>
-      </v-toolbar-items>
-      <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
+      <v-img
+        class="mx-2 icon"
+        :src="require('~/static/icon.png')"
+        max-height="50"
+        max-width="50"
+        contain
+        @click="comeHome"
+      ></v-img>
+      <v-toolbar-title class="title mr-6 hidden-sm-and-down" @click="comeHome">
+        CheftPad
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
 
@@ -114,17 +106,6 @@
     <div v-else tile class="guest-nav mx-auto overflow-hidden">
       <v-navigation-drawer v-model="drawer" width="20vw" absolute temporary>
         <v-list nav>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>fas fa-search</v-icon>
-            </v-list-item-icon>
-            <v-autocomplete
-              placeholder="Start typing to Search"
-              hide-no-data
-              hide-selected
-            ></v-autocomplete>
-          </v-list-item>
-
           <v-list-item
             v-for="route in guestRoutes"
             :key="route.name"
@@ -167,6 +148,11 @@ export default {
           icon: 'fas fa-home',
           name: 'Home',
           link: '/'
+        },
+        {
+          icon: 'fas fa-upload',
+          name: 'Upload Post',
+          link: '/postUpload'
         }
       ]
     }
@@ -186,6 +172,9 @@ export default {
         .catch((error) => {
           this.error = error
         })
+    },
+    comeHome() {
+      this.$router.push('/')
     }
   }
 }
@@ -194,5 +183,11 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   height: 100vh;
+  .title {
+    cursor: pointer;
+  }
+  .icon {
+    cursor: pointer;
+  }
 }
 </style>
