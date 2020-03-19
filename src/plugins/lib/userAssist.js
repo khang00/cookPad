@@ -12,8 +12,7 @@ export const infoModel = {
   email: '',
   photoUrl: defaultPhoto,
   phone: '',
-  bio: '',
-  posts: 0
+  bio: ''
 }
 
 function computePosts(userCollSnapshot) {
@@ -63,6 +62,23 @@ function computeFollowings(userCollSnapshot) {
           followingsArr.push(document.data())
         })
         resolve(followingsArr)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export function getUsers() {
+  return new Promise((resolve, reject) => {
+    usersDB
+      .get()
+      .then((userSnapshots) => {
+        const users = []
+        userSnapshots.forEach((snapshot) => {
+          users.push(snapshot.data())
+          resolve(users)
+        })
       })
       .catch((err) => {
         reject(err)

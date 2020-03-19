@@ -16,7 +16,7 @@
         aaaaaaaaaaaaaaaa
       </v-tab-item>
       <v-tab-item>
-        bbbbbbbbbbbbbbbb
+        <users-viewer />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -24,10 +24,12 @@
 
 <script>
 import SearchBar from '@/components/SearchBar.vue'
+import UsersViewer from '@/components/user/UsersViewer.vue'
 export default {
   name: 'Home',
   components: {
-    'search-bar': SearchBar
+    'search-bar': SearchBar,
+    'users-viewer': UsersViewer
   },
   data() {
     return {
