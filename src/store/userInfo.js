@@ -13,7 +13,9 @@ export const state = () => ({
 
 export const mutations = {
   setInfo(state, userInfo) {
-    delete userInfo.uid
+    if (userInfo !== null) {
+      delete userInfo.uid
+    }
     state.userInfo = userInfo
   }
 }

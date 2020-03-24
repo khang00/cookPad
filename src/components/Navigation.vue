@@ -1,23 +1,52 @@
 <template>
   <div class="navigation">
-    <v-app-bar width="100%" color="yellow darken-3" dark absolute flat>
-      <v-app-bar-nav-icon
-        class="hidden-sm-and-down"
-        @click="drawer = !drawer"
-      ></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <v-img
-        class="mx-2 icon"
-        :src="require('~/static/icon.png')"
-        max-height="50"
-        max-width="50"
-        contain
-        @click="comeHome"
-      ></v-img>
+    <v-app-bar
+      class="head-bar"
+      width="100%"
+      color="yellow darken-3"
+      dark
+      absolute
+      flat
+    >
+      <v-btn icon to="/">
+        <v-avatar>
+          <v-img :src="require('~/static/icon.png')"></v-img>
+        </v-avatar>
+      </v-btn>
       <v-toolbar-title class="title mr-6 hidden-sm-and-down" @click="comeHome">
         CheftPad
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-container v-if="userInfo !== null" class="nav">
+        <v-btn icon to="/profile">
+          <v-avatar>
+            <v-img :src="userInfo.photoUrl"></v-img>
+          </v-avatar>
+        </v-btn>
+        <v-btn
+          v-for="route in userRoutes"
+          :key="route.name"
+          :to="route.link"
+          icon
+        >
+          <v-icon>{{ route.icon }}</v-icon>
+        </v-btn>
+        <v-btn icon @click="logout">
+          <v-icon>fas fa-power-off</v-icon>
+        </v-btn>
+      </v-container>
+
+      <v-container v-else class="nav">
+        <v-btn
+          v-for="route in guestRoutes"
+          :key="route.name"
+          :to="route.link"
+          icon
+        >
+          <v-icon>{{ route.icon }}</v-icon>
+        </v-btn>
+      </v-container>
     </v-app-bar>
 
     <div v-if="userInfo" class="user-nav  mx-auto overflow-hidden">
@@ -150,7 +179,17 @@ export default {
           link: '/'
         },
         {
-          icon: 'fas fa-upload',
+          icon: 'fas fa-comment',
+          name: 'Chat',
+          link: '/login'
+        },
+        {
+          icon: 'fas fa-bell',
+          name: 'Notification',
+          link: '/login'
+        },
+        {
+          icon: 'fas fa-plus-circle',
           name: 'Upload Post',
           link: '/postUpload'
         }
@@ -183,6 +222,15 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   height: 100vh;
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+
+    > * {
+      margin-left: 8px;
+    }
+  }
   .title {
     cursor: pointer;
   }
