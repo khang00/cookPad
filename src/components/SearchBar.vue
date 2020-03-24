@@ -7,7 +7,7 @@
     rounded
     dense
     filled
-    @keydown="triggerSearch"
+    @keyup="triggerSearch"
   ></v-text-field>
 </template>
 
@@ -29,7 +29,7 @@ export default {
       if (emailReg.test(this.filter)) {
         searchFilters.type = 'email'
       } else {
-        searchFilters.type = 'name'
+        searchFilters.type = 'displayName'
       }
       this.$emit('search', searchFilters)
     }

@@ -34,19 +34,17 @@ export default {
   data() {
     return {
       tabs: null,
-      userFilter: '',
-      postFilter: ''
+      userFilter: null,
+      postFilter: null
     }
   },
   methods: {
     searchForContent(filter) {
       if (this.tabs === 0) {
-        console.log('tab: post')
         this.postFilter = filter
       }
 
       if (this.tabs === 1) {
-        console.log('tab: user')
         this.userFilter = filter
       }
     }

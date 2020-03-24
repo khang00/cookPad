@@ -34,5 +34,6 @@ html {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   margin-top: 8vh;
+  margin-bottom: 5vh;
 }
 </style>
