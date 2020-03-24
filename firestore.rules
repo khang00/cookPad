@@ -1,7 +1,0 @@
-service cloud.firestore {
-  match /databases/{database}/documents {
-  	match /users/{usersId}{
-      allow create, update, delete, read: if true;
-    }
-  }
-}

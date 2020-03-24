@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <search-bar />
+    <search-bar @search="searchForContent" />
     <v-tabs v-model="tabs" color="yellow darken-3" grow centered icons-and-text>
       <v-tab>
         Dishes
@@ -16,7 +16,7 @@
         aaaaaaaaaaaaaaaa
       </v-tab-item>
       <v-tab-item>
-        <users-viewer />
+        <users-viewer :filter="userFilter" />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -33,7 +33,22 @@ export default {
   },
   data() {
     return {
-      tabs: null
+      tabs: null,
+      userFilter: '',
+      postFilter: ''
+    }
+  },
+  methods: {
+    searchForContent(filter) {
+      if (this.tabs === 0) {
+        console.log('tab: post')
+        this.postFilter = filter
+      }
+
+      if (this.tabs === 1) {
+        console.log('tab: user')
+        this.userFilter = filter
+      }
     }
   }
 }

@@ -1,6 +1,10 @@
 <template>
   <div class="users-viewer">
-    <user-card v-for="(user, index) in users" :key="index" :user="user" />
+    <user-card
+      v-for="(user, index) in filteredUser"
+      :key="index"
+      :user="user"
+    />
   </div>
 </template>
 
@@ -11,13 +15,31 @@ export default {
   components: {
     'user-card': UserCard
   },
+  props: {
+    filter: {
+      type: String,
+      default: ''
+    }
+  },
   computed: {
     users() {
       return this.$store.getters['userSearchedList/getUsers']
+    },
+    filteredUser() {
+      console.log(this.filter)
+      if (this.filter.type === 'email') {
+      }
+      if (this.filter.type === 'name') {
+      }
+      return this.users
     }
   },
   mounted() {
     this.$store.dispatch('userSearchedList/retriveUsers')
+  },
+  methods: {
+    filteredUserByName() {},
+    filteredUserByEmail() {}
   }
 }
 </script>

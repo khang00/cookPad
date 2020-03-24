@@ -225,7 +225,7 @@ export default {
   .nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: end;
+    justify-content: flex-end;
 
     > * {
       margin-left: 8px;
