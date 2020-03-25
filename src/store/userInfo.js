@@ -13,9 +13,6 @@ export const state = () => ({
 
 export const mutations = {
   setInfo(state, userInfo) {
-    if (userInfo !== null) {
-      delete userInfo.uid
-    }
     state.userInfo = userInfo
   }
 }
@@ -64,6 +61,7 @@ export const actions = {
       const user = rootGetters['user/getUser']
       infoModel.email = user.email
       infoModel.displayName = user.name
+      infoModel.uid = user.uid
       setInfo(user.userId, infoModel)
         .then(() => {
           commit('setInfo', infoModel)

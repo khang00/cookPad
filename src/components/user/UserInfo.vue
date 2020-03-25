@@ -77,6 +77,7 @@ export default {
       delete infos.email
       delete infos.phone
       delete infos.photoUrl
+      delete infos.uid
       return infos
     },
     photoUrl() {

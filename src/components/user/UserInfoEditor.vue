@@ -138,7 +138,6 @@ export default {
       if (this.userInfo.bio !== this.newInfo.bio && this.newInfo.bio !== '') {
         info.bio = this.newInfo.bio
       }
-      console.log(info)
       this.$store.dispatch('userInfo/updateInfo', { info }).then(() => {
         this.loadingInfo = false
         this.infoUpdate = true

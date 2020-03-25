@@ -8,6 +8,7 @@ const defaultPhoto =
   'https://firebasestorage.googleapis.com/v0/b/cookpad-blog.appspot.com/o/user%2Fdefault.jpg?alt=media&token=865f142c-99fb-4255-9b9d-a1d2682abd42'
 
 export const infoModel = {
+  uid: '',
   displayName: '',
   email: '',
   photoUrl: defaultPhoto,

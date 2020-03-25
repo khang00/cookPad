@@ -33,7 +33,6 @@ export default {
       ) {
         return this.users
       }
-      // console.log(this.filter.content)
       const filteredUsers = []
       this.users.forEach((user) => {
         if (this.filter.type === 'email') {
