@@ -1,6 +1,7 @@
 <template>
   <div class="profile-intro">
     <v-dialog
+      v-if="user"
       v-model="edit"
       max-width="75vw"
       transition="dialog-bottom-transition"
@@ -34,12 +35,20 @@
           <p v-else>{{ value }}</p>
         </div>
         <v-btn
-          v-if="user.userId"
+          v-if="user && user.userId"
           class="edit white--text"
           color="yellow darken-3"
           depressed
           @click="edit = !edit"
           >Edit Profile</v-btn
+        >
+        <v-btn
+          v-else
+          class="edit white--text"
+          color="yellow darken-3"
+          depressed
+          @click="follow"
+          >follow</v-btn
         >
       </div>
     </v-card>
@@ -83,6 +92,9 @@ export default {
     photoUrl() {
       return this.userInfo.photoUrl
     }
+  },
+  methods: {
+    follow() {}
   }
 }
 </script>

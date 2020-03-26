@@ -1,5 +1,10 @@
 <template v-if="this.user">
-  <v-card class="user-card mx-auto" width="18vw" outlined>
+  <v-card
+    class="user-card mx-auto"
+    width="18vw"
+    :to="'profile/' + user.uid"
+    outlined
+  >
     <v-img class="white--text align-end" height="200px" :src="user.photoUrl">
     </v-img>
     <v-card-title>{{ user.displayName }}</v-card-title>

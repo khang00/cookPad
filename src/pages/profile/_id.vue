@@ -1,6 +1,6 @@
 <template>
-  <div v-if="ortherUserInfo" class="profile">
-    <user-info :user-info="ortherUserInfo" />
+  <div v-if="readUserInfo" class="profile">
+    <user-info :user-info="readUserInfo" />
     <user-post />
   </div>
 </template>
@@ -15,14 +15,20 @@ export default {
     'user-info': UserInfo,
     'user-post': UserPost
   },
-  data() {
-    return {
-      routeId: this.$route.params.id
+  computed: {
+    readUserInfo() {
+      return this.$store.getters['displayedUser/getUser']
     }
   },
-  computed: {
-    ortherUserInfo() {
-      return {}
+  watch: {
+    '$route.params.id': {
+      handler() {
+        this.$store.dispatch('displayedUser/retriveInfo', {
+          uid: this.$route.params.id
+        })
+      },
+      deep: true,
+      immediate: true
     }
   }
 }
