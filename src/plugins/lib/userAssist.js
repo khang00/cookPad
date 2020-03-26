@@ -2,7 +2,7 @@ import database from '@/plugins/database.js'
 import storage from '@/plugins/firestore.js'
 
 const collection = 'users'
-const usersDB = database.collection(collection)
+export const usersDB = database.collection(collection)
 const userStorePath = 'user/'
 const defaultPhoto =
   'https://firebasestorage.googleapis.com/v0/b/cookpad-blog.appspot.com/o/user%2Fdefault.jpg?alt=media&token=865f142c-99fb-4255-9b9d-a1d2682abd42'
@@ -70,23 +70,6 @@ function computeFollowings(userCollSnapshot) {
   })
 }
 
-export function getUsers() {
-  return new Promise((resolve, reject) => {
-    usersDB
-      .get()
-      .then((userSnapshots) => {
-        const users = []
-        userSnapshots.forEach((snapshot) => {
-          users.push(snapshot.data())
-          resolve(users)
-        })
-      })
-      .catch((err) => {
-        reject(err)
-      })
-  })
-}
-
 export function getInfo(userId) {
   return new Promise((resolve, reject) => {
     let userInfo = {}
@@ -109,6 +92,23 @@ export function getInfo(userId) {
         } else {
           resolve(null)
         }
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export function getUsers() {
+  return new Promise((resolve, reject) => {
+    usersDB
+      .get()
+      .then((userSnapshots) => {
+        const users = []
+        userSnapshots.forEach((snapshot) => {
+          users.push(snapshot.data())
+          resolve(users)
+        })
       })
       .catch((err) => {
         reject(err)
