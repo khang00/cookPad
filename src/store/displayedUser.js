@@ -2,7 +2,7 @@ import { getInfo } from '@/plugins/lib/userAssist.js'
 
 export const state = () => ({
   user: null,
-  posts: []
+  savedPosts: []
 })
 
 export const mutations = {
