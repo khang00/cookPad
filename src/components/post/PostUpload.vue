@@ -1,24 +1,18 @@
 <template>
   <div class="post-upload">
     <v-card class="post-content-input" outlined>
+      <post-images-upload />
       <v-divider vertical inset></v-divider>
       <v-card-title>Make A Dish</v-card-title>
       <v-card-actions>
         <v-form class="form">
           <v-text-field
-            v-model="post.name"
+            v-model="post.caption"
             color="yellow darken-3"
             label="Dish Name"
-            placeholder="Your dish name"
+            placeholder="Caption"
             outlined
           ></v-text-field>
-          <v-textarea
-            v-model="post.subMaterial"
-            color="yellow darken-3"
-            label="Dish Sub Material"
-            placeholder="Your additional material"
-            outlined
-          ></v-textarea>
         </v-form>
       </v-card-actions>
     </v-card>
@@ -26,11 +20,16 @@
 </template>
 
 <script>
+import PostImagesUpload from '@/components/post/PostImagesUpload.vue'
 export default {
   name: 'PostUpload',
+  components: {
+    'post-images-upload': PostImagesUpload
+  },
   data() {
     return {
       post: {
+        caption: '',
         steps: []
       }
     }
