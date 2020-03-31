@@ -1,6 +1,6 @@
 <template>
   <div class="post-images-wrapper">
-    <v-card-title>Change Your Avatar</v-card-title>
+    <v-card-title>Images for your dish</v-card-title>
     <v-card-actions>
       <v-file-input
         v-model="postImages"
@@ -12,7 +12,6 @@
         placeholder="Select your post images"
         prepend-icon="fas fa-camera"
         outlined
-        :success="avtUpdate"
         :clearable="false"
         :show-size="1000"
       >
@@ -30,16 +29,23 @@
         </template>
       </v-file-input>
     </v-card-actions>
-    <v-carousel cycle>
-      <v-carousel-item
-        v-for="(image, index) in postImages"
-        :key="index"
-        :src="convertImageToUrl(image)"
-        width="60vw"
-        contain
+    <v-card-actions>
+      <v-carousel
+        v-if="postImages && postImages.length > 0"
+        cycle
+        :show-arrows="false"
+        hide-delimiter-background
       >
-      </v-carousel-item>
-    </v-carousel>
+        <v-carousel-item
+          v-for="(image, index) in postImages"
+          :key="index"
+          :src="convertImageToUrl(image)"
+          width="60vw"
+          contain
+        >
+        </v-carousel-item>
+      </v-carousel>
+    </v-card-actions>
   </div>
 </template>
 
