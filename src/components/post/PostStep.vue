@@ -1,15 +1,8 @@
 <template>
-  <v-card v-if="step" class="post-step pa-5">
+  <v-card v-if="step" class="post-step pa-2">
     <v-card-title>Step {{ order + 1 }}</v-card-title>
     <v-card-actions>
       <v-container>
-        <v-text-field
-          v-model="step.content"
-          color="yellow darken-3"
-          label="Instruction"
-          prepend-icon="fas fa-closed-captioning"
-          outlined
-        ></v-text-field>
         <v-file-input
           v-model="step.image"
           color="yellow darken-3"
@@ -35,17 +28,25 @@
             </span>
           </template>
         </v-file-input>
+        <v-img
+          v-if="step.image"
+          height="40vh"
+          width="100%"
+          :aspect-ratio="1"
+          :src="displayImage"
+          contain
+        >
+        </v-img>
+        <v-textarea
+          v-model="step.content"
+          class="mt-5"
+          color="yellow darken-3"
+          label="Instruction"
+          prepend-icon="fas fa-closed-captioning"
+          outlined
+        ></v-textarea>
       </v-container>
     </v-card-actions>
-    <v-img
-      v-if="step.image"
-      height="40vh"
-      width="100%"
-      :aspect-ratio="1"
-      :src="displayImage"
-      contain
-    >
-    </v-img>
   </v-card>
 </template>
 
@@ -70,4 +71,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.post-step {
+  cursor: move;
+}
+</style>

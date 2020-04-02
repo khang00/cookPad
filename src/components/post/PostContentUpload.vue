@@ -1,30 +1,42 @@
 <template>
-  <div class="post-upload">
-    <v-divider vertical inset></v-divider>
-    <v-card-title>A description for your dish</v-card-title>
+  <v-card class="post-upload pa-2">
     <v-card-actions>
-      <v-text-field
-        v-model="post.caption"
-        color="yellow darken-3"
-        label="Caption"
-        prepend-icon="fas fa-closed-captioning"
-        outlined
-      ></v-text-field>
+      <v-container>
+        <post-images-upload v-model="images" />
+        <v-text-field
+          v-model="post.caption"
+          class="mt-5"
+          color="yellow darken-3"
+          label="Caption"
+          prepend-icon="fas fa-closed-captioning"
+          outlined
+        ></v-text-field>
+      </v-container>
     </v-card-actions>
-  </div>
+  </v-card>
 </template>
 
 <script>
+import PostImagesUpload from '@/components/post/PostImagesUpload.vue'
+
 export default {
   name: 'PostContentUpload',
+  components: {
+    'post-images-upload': PostImagesUpload
+  },
   data() {
     return {
       post: {
-        caption: ''
+        caption: '',
+        images: []
       }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.post-upload {
+  margin-top: 5vh;
+}
+</style>

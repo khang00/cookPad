@@ -1,12 +1,14 @@
 <template>
   <div class="post-steps-wrapper">
-    <post-step
-      v-for="(step, index) in steps"
-      :key="index"
-      :order="index"
-      :step="step"
-      class="step"
-    />
+    <draggable v-model="steps">
+      <post-step
+        v-for="(step, index) in steps"
+        :key="index"
+        :order="index"
+        :step="step"
+        class="step"
+      />
+    </draggable>
     <v-btn
       class="white--text ma-2"
       color="yellow darken-3"
@@ -19,11 +21,14 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import PostStep from '@/components/post/PostStep.vue'
+
 export default {
   name: 'PostSteps',
   components: {
-    'post-step': PostStep
+    'post-step': PostStep,
+    draggable
   },
   data() {
     return {
