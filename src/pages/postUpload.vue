@@ -1,6 +1,6 @@
 <template>
   <div class="post-upload-wrapper">
-    <post-upload />
+    <post-upload :post="post" @postDish="postDish" />
     <div class="post-steps-wrapper">
       <draggable v-model="steps">
         <post-step
@@ -11,14 +11,15 @@
           class="step"
         />
       </draggable>
-      <v-btn
-        class="white--text ma-2"
-        color="yellow darken-3"
-        block
-        @click="addStep"
-      >
-        Add Step
-      </v-btn>
+      <div class="button-wrapper">
+        <v-btn
+          class="white--text ma-2"
+          color="yellow darken-3"
+          @click="addStep"
+        >
+          Add Step
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +38,13 @@ export default {
   data() {
     return {
       totalSteps: 3,
+      post: {
+        name: '',
+        description: '',
+        images: [],
+        mainIngredients: [],
+        subIngredients: ''
+      },
       stepModel: {
         content: '',
         image: null
@@ -55,6 +63,13 @@ export default {
       ++this.totalSteps
       const step = { ...this.stepModel }
       this.steps.push(step)
+    },
+    postDish(event) {
+      console.log('dispatch action post dish \n')
+      this.$store.dispatch('post/createPost', {
+        post: event,
+        steps: this.steps
+      })
     }
   }
 }
@@ -62,6 +77,12 @@ export default {
 
 <style lang="scss" scoped>
 .post-steps-wrapper {
+  .button-wrapper {
+    display: flex;
+    > button {
+      flex: 1;
+    }
+  }
   .step {
     margin: 5vh 0vh;
   }

@@ -1,6 +1,24 @@
 import { usersDB } from '@/plugins/lib/userAssist.js'
 // import storage from '@/plugins/firestore.js'
 
+export function createPost(uid, post, steps) {
+  return new Promise((resolve, reject) => {
+    usersDB
+      .doc(uid)
+      .collection('post')
+      .add(post)
+      .then((postRef) => {
+        steps.forEach((step) => {
+          postRef.collection('steps').add(step)
+        })
+        resolve()
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
 export function getAllUserPost(uid) {
   return new Promise((resolve, reject) => {
     const postsArr = []
