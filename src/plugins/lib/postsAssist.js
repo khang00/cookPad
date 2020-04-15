@@ -1,8 +1,8 @@
 import { usersDB } from '@/plugins/lib/userAssist.js'
 import storage from '@/plugins/firestore.js'
 // import storage from '@/plugins/firestore.js'
-const postStorePath = 'post/'
-const stepStorePath = 'step/'
+const postStorePath = 'post'
+const stepStorePath = 'step'
 export const defaultPhoto =
   'https://firebasestorage.googleapis.com/v0/b/cookpad-blog.appspot.com/o/user%2Fdefault.jpg?alt=media&token=865f142c-99fb-4255-9b9d-a1d2682abd42'
 
@@ -21,6 +21,8 @@ export function getUrlPhotoImage(postId, index) {
 }
 
 export function updatePost(userId, postId, post) {
+  console.log('update')
+  console.log(post)
   return usersDB
     .doc(userId)
     .collection('post')
@@ -28,58 +30,31 @@ export function updatePost(userId, postId, post) {
     .update(post)
 }
 
-export function getAllImageOfPost(userId, postId) {
-  return new Promise((resolve, reject) => {
-    const imagesUrl = []
-    getUrlPhotoImage(userId, postId, 1).then((url) => {
-      imagesUrl.push(url)
-      getUrlPhotoImage(userId, postId, 2).then((url) => {
-        imagesUrl.push(url)
-        getUrlPhotoImage(userId, postId, 3).then((url) => {
-          imagesUrl.push(url)
-          resolve(imagesUrl)
-        })
-      })
-    })
-  })
+export async function getAllImageOfPost(postId) {
+  const imagesUrl = []
+  imagesUrl.push(await getUrlPhotoImage(postId, 0))
+  imagesUrl.push(await getUrlPhotoImage(postId, 1))
+  imagesUrl.push(await getUrlPhotoImage(postId, 2))
+  return imagesUrl
 }
 
 export async function uploadImages(postId, images) {
-  return new Promise((resolve, reject) => {
-    uploadPostImages(postId, 0, images[0]).then((ref) => {
-      uploadPostImages(postId, 1, images[1]).then((ref) => {
-        uploadPostImages(postId, 2, images[2]).then((ref) => {
-          resolve()
-        })
-      })
-    })
-  })
+  await uploadPostImages(postId, 0, images[0])
+  await uploadPostImages(postId, 1, images[1])
+  await uploadPostImages(postId, 2, images[2])
+  return 0
 }
 
-export function createPost(uid, post, steps) {
-  return new Promise((resolve, reject) => {
-    const imagesNeed = post.images
-    delete post.images
-    usersDB
-      .doc(uid)
-      .collection('post')
-      .add(post)
-      .then((postRef) => {
-        uploadImages(postRef.id, imagesNeed).then(() => {
-          getAllImageOfPost(uid, postRef.id).then((imagesUrl) => {
-            const postIm = {
-              imageUrl1: imagesUrl[0],
-              imageUrl2: imagesUrl[1],
-              imageUrl3: imagesUrl[2]
-            }
-            updatePost(uid, postRef.id, postIm)
-          })
-        })
-      })
-      .catch((err) => {
-        reject(err)
-      })
-  })
+export async function createPost(user, post, steps, imagesNeed) {
+  const postRef = await usersDB
+    .doc(user.uid)
+    .collection('post')
+    .add({
+      post
+    })
+  await uploadImages(postRef.id, imagesNeed)
+  const imagesUrl = await getAllImageOfPost(postRef.id)
+  await updatePost(user.uid, postRef.id, { imgMain: imagesUrl })
 }
 
 export function createPostSteps(postRef, steps) {

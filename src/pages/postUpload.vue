@@ -65,7 +65,6 @@ export default {
       this.steps.push(step)
     },
     postDish(event) {
-      console.log('dispatch action post dish \n')
       this.$store.dispatch('post/createPost', {
         post: event,
         steps: this.steps

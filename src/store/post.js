@@ -18,15 +18,17 @@ export const getters = {
 
 export const actions = {
   createPost({ commit, rootGetters }, { post, steps }) {
-    const userId = rootGetters['user/getUser'].userId
-    createPost(userId, post, steps)
-      .then(() => {
-        console.log('sucess')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    console.log(post)
-    console.log(steps)
+    const user = rootGetters['userInfo/getInfo']
+    const filterPost = {
+      caption: post.name,
+      decription: post.description,
+      ownerUid: user.uid,
+      MainIngredients: post.mainIngredients[0],
+      Ingredients: post.subIngredients,
+      postOwnerName: user.displayName,
+      postOwnerPhotoUrl: user.photoUrl,
+      time: new Date()
+    }
+    createPost(user, filterPost, steps, post.images.slice())
   }
 }
