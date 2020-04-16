@@ -1,5 +1,9 @@
 <template v-if="this.post">
-  <v-card class="user-card mx-auto" width="18vw">
+  <v-card
+    class="user-card mx-auto"
+    width="18vw"
+    :to="{ path: '/post/' + post.id, query: { post: post } }"
+  >
     <v-list-item>
       <v-list-item-avatar color="grey">
         <v-img :src="post.postOwnerPhotoUrl"></v-img>
@@ -14,7 +18,7 @@
     <v-img
       class="white--text align-end"
       height="200"
-      :src="post.imgUrl"
+      :src="post.imgMain[0]"
     ></v-img>
     <v-card-actions>
       <v-spacer></v-spacer>

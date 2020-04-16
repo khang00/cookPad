@@ -24,7 +24,9 @@ function computePosts(userCollSnapshot) {
       .get()
       .then((posts) => {
         posts.forEach((document) => {
-          postsArr.push(document.data())
+          const postObject = { ...document.data() }
+          postObject.id = document.id
+          postsArr.push(postObject)
         })
         resolve(postsArr)
       })

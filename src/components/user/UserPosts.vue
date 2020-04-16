@@ -1,6 +1,6 @@
 <template v-if="this.posts">
   <div class="user-posts">
-    <post-card v-for="post in posts" :key="post.time" :post="post" />
+    <post-card v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
 

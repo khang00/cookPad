@@ -75,8 +75,11 @@ export function getAllUserPost(uid) {
       .get()
       .then((posts) => {
         posts.forEach((document) => {
-          postsArr.push(document.data())
+          const postObject = { ...document.data() }
+          postObject.id = document.id
+          postsArr.push(postObject)
         })
+        console.log(postsArr)
         resolve(postsArr)
       })
       .catch((err) => {
@@ -102,4 +105,18 @@ export function getAllUserSavedPost(uid) {
         reject(err)
       })
   })
+}
+export function getPostStep(userId, postId) {
+  return usersDB
+    .doc(userId)
+    .collection('posts')
+    .doc(postId)
+    .collection('Step')
+    .get()
+}
+export function getUserPost(userId, postId) {
+  return usersDB
+    .doc(userId)
+    .collection('post')
+    .doc(postId)
 }
