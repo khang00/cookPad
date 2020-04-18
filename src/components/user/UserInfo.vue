@@ -35,7 +35,9 @@
           <p v-else>{{ value }}</p>
         </div>
         <v-btn
-          v-if="user && user.userId == getRouteId"
+          v-if="
+            user && (user.userId == getRouteId() || 'profile' == getRouteName())
+          "
           class="edit white--text"
           color="yellow darken-3"
           depressed
@@ -97,6 +99,9 @@ export default {
     follow() {},
     getRouteId() {
       return this.$route.params.id
+    },
+    getRouteName() {
+      return this.$route.name
     }
   }
 }

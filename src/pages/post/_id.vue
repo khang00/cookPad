@@ -17,9 +17,21 @@
       <v-card-text> {{ post.MainIngredient }} </v-card-text>
       <v-card-text> {{ post.Ingredients }} </v-card-text>
     </v-card>
-    {{ steps }}
+    <v-container
+      v-if="steps.hasOwnProperty('content') && steps.hasOwnProperty('imagURL')"
+    >
+      <v-card
+        v-for="index in steps.content.length"
+        :key="index"
+        width="100%"
+        class="mt-5"
+      >
+        <v-img height="60vh" :src="steps.imagURL[index - 1]" contain></v-img>
+        <v-card-title class="headline"> Step {{ index }}</v-card-title>
+        <v-card-text> {{ steps.content[index - 1] }} </v-card-text>
+      </v-card>
+    </v-container>
     {{ iniSteps }}
-    {{ post }}
   </div>
 </template>
 
@@ -42,14 +54,16 @@ export default {
   },
   methods: {
     getStep() {
+      console.log('Get stepsssssss')
       getPostStep(this.post.ownerUid, this.$route.params.id).then((stepRef) => {
+        console.log('post array got')
         stepRef.forEach((doc) => {
           console.log(doc)
           console.log(doc.data())
           this.steps = doc.data()
         })
       })
-      return 0
+      return ''
     }
   }
 }

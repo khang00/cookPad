@@ -10,8 +10,33 @@ export function uploadPostImages(postId, index, image) {
   return storage.child(`${postStorePath}/${postId}_${index}.jpg`).put(image)
 }
 
-export function uploadStepImages(stepId, image) {
-  return storage.child(`${stepStorePath}/${stepId}.jpg`).put(image)
+export function uploadStepImages(postId, steps) {
+  const promises = []
+  for (let i = 0; i < steps.length; ++i) {
+    console.log('upload step images: ' + i)
+    promises.push(uploadStepImage(postId, i, steps[i].image))
+  }
+  return Promise.all(promises)
+}
+
+export function uploadStepImage(postId, index, image) {
+  return storage.child(`${stepStorePath}/${postId}_${index}.jpg`).put(image)
+}
+
+export function getStepImages(postId, numOfStep) {
+  const promises = []
+  for (let i = 0; i < numOfStep; ++i) {
+    console.log('get step images: ' + i)
+    promises.push(getStepImage(postId, i))
+  }
+  return Promise.all(promises)
+}
+
+export function getStepImage(postId, index) {
+  console.log('get step images path: ' + postId + '_' + index)
+  return storage
+    .child(`${stepStorePath}/${postId}_${index}.jpg`)
+    .getDownloadURL()
 }
 
 export function getUrlPhotoImage(postId, index) {
@@ -25,7 +50,7 @@ export function updatePost(userId, postId, post) {
   console.log(post)
   return usersDB
     .doc(userId)
-    .collection('post')
+    .collection('posts')
     .doc(postId)
     .update(post)
 }
@@ -39,6 +64,7 @@ export async function getAllImageOfPost(postId) {
 }
 
 export async function uploadImages(postId, images) {
+  console.log('upload Images')
   await uploadPostImages(postId, 0, images[0])
   await uploadPostImages(postId, 1, images[1])
   await uploadPostImages(postId, 2, images[2])
@@ -48,22 +74,46 @@ export async function uploadImages(postId, images) {
 export async function createPost(user, post, steps, imagesNeed) {
   const postRef = await usersDB
     .doc(user.uid)
-    .collection('post')
-    .add({
-      post
-    })
+    .collection('posts')
+    .add(post)
   await uploadImages(postRef.id, imagesNeed)
   const imagesUrl = await getAllImageOfPost(postRef.id)
   await updatePost(user.uid, postRef.id, { imgMain: imagesUrl })
+  createPostSteps(user.uid, postRef, steps)
 }
 
-export function createPostSteps(postRef, steps) {
-  steps.forEach((step) => {
-    postRef
-      .collection('steps')
-      .add(step)
-      .then((stepRef) => {})
+export function createPostSteps(userId, postRef, steps) {
+  console.log('post steps')
+  uploadStepImages(postRef.id, steps).then((values) => {
+    getStepImages(postRef.id, steps.length).then((values) => {
+      const stepSend = {
+        content: [],
+        imagURL: []
+      }
+      console.log('create steps send')
+      console.log(stepSend)
+      for (let i = 0; i < steps.length; i++) {
+        stepSend.content.push(steps[i].content)
+      }
+      for (let i = 0; i < values.length; ++i) {
+        stepSend.imagURL.push(values[i])
+      }
+      console.log('finish steps send')
+      console.log(stepSend)
+      createStep(userId, postRef.id, stepSend)
+    })
   })
+}
+
+export function createStep(userId, postId, stepSend) {
+  console.log('update steps')
+  console.log(stepSend)
+  return usersDB
+    .doc(userId)
+    .collection('posts')
+    .doc(postId)
+    .collection('Step')
+    .add(stepSend)
 }
 
 export function getAllUserPost(uid) {
@@ -107,6 +157,8 @@ export function getAllUserSavedPost(uid) {
   })
 }
 export function getPostStep(userId, postId) {
+  console.log('Get post')
+  console.log('User: ' + userId + ' Post: ' + postId)
   return usersDB
     .doc(userId)
     .collection('posts')
@@ -117,6 +169,6 @@ export function getPostStep(userId, postId) {
 export function getUserPost(userId, postId) {
   return usersDB
     .doc(userId)
-    .collection('post')
+    .collection('posts')
     .doc(postId)
 }
