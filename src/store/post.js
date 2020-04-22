@@ -23,7 +23,7 @@ export const actions = {
       caption: post.name,
       decription: post.description,
       ownerUid: user.uid,
-      MainIngredients: post.mainIngredients[0],
+      MainIngredient: post.MainIngredient[0],
       Ingredients: post.subIngredients,
       postOwnerName: user.displayName,
       postOwnerPhotoUrl: user.photoUrl,

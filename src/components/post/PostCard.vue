@@ -3,6 +3,7 @@
     class="user-card mx-auto"
     width="18vw"
     :to="{ path: '/post/' + post.id, query: { post: post } }"
+    outlined
   >
     <v-list-item>
       <v-list-item-avatar color="grey">

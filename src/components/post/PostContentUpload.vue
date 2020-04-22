@@ -72,7 +72,7 @@
           outlined
         ></v-text-field>
         <v-combobox
-          v-model="newPost.mainIngredients"
+          v-model="newPost.MainIngredient"
           :items="existedIngredients"
           color="yellow darken-3"
           label="Your main ingredients"

@@ -1,3 +1,4 @@
+/* eslint no-new: 1 */
 import database from '@/plugins/database.js'
 import storage from '@/plugins/firestore.js'
 
@@ -98,6 +99,27 @@ export function getInfo(userId) {
       .catch((err) => {
         reject(err)
       })
+  })
+}
+
+let allPost = []
+
+export function retriveAllPost() {
+  return new Promise((resolve, reject) => {
+    allPost = []
+    usersDB.get().then((userSnapshots) => {
+      userSnapshots.forEach((userSnapshot) => {
+        userSnapshot.ref
+          .collection('posts')
+          .get()
+          .then((postSnapshots) => {
+            postSnapshots.forEach((postSnapshot) => {
+              allPost.push(postSnapshot.data())
+            })
+            resolve(allPost)
+          })
+      })
+    })
   })
 }
 

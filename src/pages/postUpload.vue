@@ -42,7 +42,7 @@ export default {
         name: '',
         description: '',
         images: [],
-        mainIngredients: [],
+        MainIngredient: [],
         subIngredients: ''
       },
       stepModel: {

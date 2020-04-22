@@ -13,10 +13,10 @@
     </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item>
-        aaaaaaaaaaaaaaaa
+        <post-viewer :filter="filter" />
       </v-tab-item>
       <v-tab-item>
-        <users-viewer :filter="userFilter" />
+        <users-viewer :filter="filter" />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -25,28 +25,25 @@
 <script>
 import SearchBar from '@/components/SearchBar.vue'
 import UsersViewer from '@/components/user/UsersViewer.vue'
+import PostViewer from '@/components/post/PostViewer.vue'
 export default {
   name: 'Home',
   components: {
     'search-bar': SearchBar,
-    'users-viewer': UsersViewer
+    'users-viewer': UsersViewer,
+    'post-viewer': PostViewer
   },
   data() {
     return {
       tabs: null,
+      filter: null,
       userFilter: null,
       postFilter: null
     }
   },
   methods: {
     searchForContent(filter) {
-      if (this.tabs === 0) {
-        this.postFilter = filter
-      }
-
-      if (this.tabs === 1) {
-        this.userFilter = filter
-      }
+      this.filter = filter
     }
   }
 }
