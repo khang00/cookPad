@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import UserCard from '@/components/user/UserCard.vue'
+import UserCard from 'UserCard.vue'
 export default {
   name: 'UsersViewer',
   components: {
